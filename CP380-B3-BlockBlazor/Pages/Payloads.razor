@@ -14,7 +14,7 @@ else
     <!-- TODO: Render a table with all of the pending transactions
                This table should include all of the fields for each pending transaction
       -->
-    <table>
+    <table border="1">
         <thead>
             <tr>
                 <th>User</th>
@@ -53,14 +53,14 @@ else
     protected override async Task OnInitializedAsync()
     {
         // TODO: Fetch all the payloads from the service
-        payloads = await PendingTransactionService.Getpayloadasync();
+        payloads = await _service.Getpayloadasync();
     }
-
+@*
     private async Task HandleValidSubmit()
     {
 
         // TODO: submit the new payload to the web API using the PendingTransactionService
         //       - if succcessful, the payloads should be re-loaded
         //       - if there is an error, then the submitResponse variable should be updated with the error
-    }
+    }*@
 }

@@ -24,31 +24,32 @@ namespace CP380_B3_BlockBlazor.Data
         public PendingTransactionService(IHttpClientFactory httpClientFactory, IConfiguration configuration)
         {
             _httpclient = httpClientFactory.CreateClient();
-            _config = configuration.GetSection("PendingTransactionService");
+            _config = configuration.GetSection("PayloadService");
         }
 
         //
         // TODO: Add an async method that returns an IEnumerable<Payload> (list of Payloads)
         //       from the web service
         //
-        public async Task<IEnumerable<PendingTransactionService>> GetBlocks()
+        public async Task<IEnumerable<Payload>> Getpayloadasync()
         {
-            var response = await _httpclient.GetAsync(_config["blockurl"]);
+            var response = await _httpclient.GetAsync(_config["url"]);
             if (response.IsSuccessStatusCode)
             {
                 JsonSerializerOptions options = new(JsonSerializerDefaults.Web);
-                return await JsonSerializer.DeserializeAsync<IEnumerable<PendingTransactionService>>(
+                return await JsonSerializer.DeserializeAsync<IEnumerable<Payload>>(
                     await response.Content.ReadAsStreamAsync(), options
 
                     );
                 //return await
             }
-            return Array.Empty<PendingTransactionService>();
+            return Array.Empty<Payload>();
         }
         //
         // TODO: Add an async method that returns an HttpResponseMessage
         //       and accepts a Payload object.
         //       This method should POST the Payload to the web API server
         //
+
     }
 }
