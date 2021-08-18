@@ -1,6 +1,6 @@
 ﻿@page "/payloads"
 <!-- TODO: Add using and inject statements -->
-
+@using CP380_B1_BlockList.Models;
 @using CP380_B3_BlockBlazor.Data;
 @inject PendingTransactionService _service
 <h3>Pending Transactions</h3>
@@ -53,7 +53,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         // TODO: Fetch all the payloads from the service
-        payloads = await PendingTransactionService.Getpayloadasync
+        payloads = await PendingTransactionService.Getpayloadasync();
     }
 
     private async Task HandleValidSubmit()

@@ -5,10 +5,8 @@ using System.Threading.Tasks;
 using System.Text.Json;
 using System.Net.Http;
 using Microsoft.Extensions.Configuration;
-using System.Net.Http;
 using CP380_B1_BlockList.Models;
-using Microsoft.Extensions.Configuration;
-using System.Text.Json;
+
 
 namespace CP380_B3_BlockBlazor.Data
 {
@@ -32,7 +30,7 @@ namespace CP380_B3_BlockBlazor.Data
         // TODO: Add an async method that returns an IEnumerable<Block> (list of Blocks)
         //       from the web service
         //
-        public async Task<IEnumerable<Block>> GetBlocks()
+        public async Task<IEnumerable<Block>> GetBlocksAsync()
         {
             var response = await _httpclient.GetAsync(_config["blockurl"]);
             if (response.IsSuccessStatusCode)

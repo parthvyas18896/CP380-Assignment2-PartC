@@ -14,20 +14,31 @@
 }
 else
 {
-    <div class="card-columns">
-       
-
-        <!-- TODO: Add cards for each block in the block list
-
-                   Each card should show:
-                        - the position in the chain (starting at 0)
-                        - the hash
-                        - the nonce
-                        - the previous hash
-          -->
+<div class="card-columns">
 
 
-    </div>
+    <!-- TODO: Add cards for each block in the block list
+
+               Each card should show:
+                    - the position in the chain (starting at 0)
+                    - the hash
+                    - the nonce
+                    - the previous hash
+      -->
+
+    @foreach (var Mov in blocklist)
+    {
+        <div class="column">
+            <div class="content">
+
+                <h3>@Mov.hash</h3>
+                <p>@Mov.Nonce</p>
+                <p>@Mov.PreviousHash </p>
+            </div>
+        </div>
+    }
+
+</div>
 }
 
 @code {
@@ -36,7 +47,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         // TODO: fetch blocks from the BlockService
-        blocklist = await _service.GetBlocks();
+        blocklist = await BlockService.GetBlocksAsync(DateTime.Now);
 
     }
 }
