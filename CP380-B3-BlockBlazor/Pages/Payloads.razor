@@ -17,15 +17,21 @@ else
     <table>
         <thead>
             <tr>
-                <th></th>
+                <th>User</th>
+                <th>Type</th>
+                <th>Amount</th>  
+                <th>Item</th> 
             </tr>
         </thead>
         <tbody>
-            @foreach (var )
+              @foreach (var payload in payloads)
                 {
-                    <tr>
-                        <td></td>
-                    </tr>
+            <tr>
+                <td>@payload.User</td>
+                <td>@payload.Type</td>
+                <td>@payload.Amount</td>
+                <td>@payload.Item</td>
+            </tr>
                 }
         </tbody>
     </table>
@@ -47,10 +53,12 @@ else
     protected override async Task OnInitializedAsync()
     {
         // TODO: Fetch all the payloads from the service
+        payloads = await PendingTransactionService.Getpayloadasync
     }
 
     private async Task HandleValidSubmit()
     {
+
         // TODO: submit the new payload to the web API using the PendingTransactionService
         //       - if succcessful, the payloads should be re-loaded
         //       - if there is an error, then the submitResponse variable should be updated with the error

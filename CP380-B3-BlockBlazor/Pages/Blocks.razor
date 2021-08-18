@@ -31,11 +31,12 @@ else
 }
 
 @code {
-    IEnumerable<Blocks> blocklist;
+   private  IEnumerable<Blocks> blocklist;
 
     protected override async Task OnInitializedAsync()
     {
         // TODO: fetch blocks from the BlockService
+        blocklist = await _service.GetBlocks();
 
     }
 }
