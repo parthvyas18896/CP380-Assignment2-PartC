@@ -1,8 +1,9 @@
 ﻿@page "/payloads"
 <!-- TODO: Add using and inject statements -->
-@using CP380_B1_BlockList.Models;
-@using CP380_B3_BlockBlazor.Data;
+@using CP380_B1_BlockList.Models
+@using CP380_B3_BlockBlazor.Data
 @inject PendingTransactionService _service
+
 <h3>Pending Transactions</h3>
 
 @if (payloads == null)
@@ -14,25 +15,30 @@ else
     <!-- TODO: Render a table with all of the pending transactions
                This table should include all of the fields for each pending transaction
       -->
+
     <table border="1">
         <thead>
             <tr>
                 <th>User</th>
                 <th>Type</th>
-                <th>Amount</th>  
-                <th>Item</th> 
+                <th>Amount</th>
+                <th>Item</th>
             </tr>
         </thead>
         <tbody>
-              @foreach (var payload in payloads)
-                {
-            <tr>
-                <td>@payload.User</td>
-                <td>@payload.Type</td>
-                <td>@payload.Amount</td>
-                <td>@payload.Item</td>
-            </tr>
-                }
+            @foreach (var payload in payloads)
+            {
+                <tr>
+
+                    <td>@payload.User</td>
+
+                    <td>@payload.Type</td>
+
+                    <td>@payload.Amount</td>
+
+                    <td>@payload.Item</td>
+                </tr>
+            }
         </tbody>
     </table>
 }
@@ -40,6 +46,33 @@ else
 <p></p>
 
 <p>@submitResponse</p>
+
+
+<EditForm Model="@Payload" OnValidSubmit="@HandleValidSubmit">
+    <div class="form-group">
+        <label for="message"> User: </label>
+        <InputText id="message" @bind-Value="Payload.User" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="transactionType" id="transactionType"> Transaction Type: </label>
+        <InputSelect id="transactionType" @bind-Value="Payload.Type">
+            <option value="BUY">Buy</option>
+            <option value="SELL">Sell</option>
+            <option value="GRANT">Grant</option>
+        </InputSelect>
+    </div>
+    <div class="form-group">
+        <label for="item" id="item"> Item: </label>
+        <InputText id="item" @bind-Value="Payload.Item" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="amount" id="amount"> Amount: </label>
+        <InputNumber id="amount" @bind-Value="Payload.Amount" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary"> Add Payload </button>
+
+</EditForm>
+
 
 
 <!-- TODO: Add EditForm to submit a new transaction to the server -->
@@ -55,12 +88,20 @@ else
         // TODO: Fetch all the payloads from the service
         payloads = await _service.Getpayloadasync();
     }
-@*
+
     private async Task HandleValidSubmit()
     {
-
         // TODO: submit the new payload to the web API using the PendingTransactionService
         //       - if succcessful, the payloads should be re-loaded
         //       - if there is an error, then the submitResponse variable should be updated with the error
-    }*@
+        var res = await _service.Postpayloadasync(Payload);
+        if (res.IsSuccessStatusCode)
+        {
+            payloads = await _service.Getpayloadasync();
+        }
+        else
+        {
+            submitResponse = res.StatusCode.ToString();
+        }
+    }
 }

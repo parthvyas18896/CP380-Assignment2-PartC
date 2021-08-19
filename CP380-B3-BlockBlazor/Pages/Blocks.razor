@@ -14,16 +14,17 @@
 }
 else
 {
-<div class="card-columns" style="width: 18rem;">
+<div class="card" style="width: 18rem;">
     
     @foreach (var Mov in blocklist)
     {
-        <div class="card-body">
-            <h5 class="card-title">@Mov.Hash</h5>
-            <h6 class="card-subtitle mb-2 text-muted">@Mov.Nonce</h6>
-            <p class="card-text">@Mov.PreviousHash</p>
+    <div class="card-body">
+        <h6 class="card-title">Hash: @Mov.Hash</h6>
+        <h5 class="card-subtitle">Nonce: @Mov.Nonce</h5>
+        <h5 class="card-title">Previous Hash: @Mov.PreviousHash</h5>
 
-        </div>
+
+    </div>
             }
 
 </div>

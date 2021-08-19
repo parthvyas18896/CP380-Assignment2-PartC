@@ -50,6 +50,17 @@ namespace CP380_B3_BlockBlazor.Data
         //       and accepts a Payload object.
         //       This method should POST the Payload to the web API server
         //
+        public async Task<HttpResponseMessage> Postpayloadasync(Payload payload)
+        {
+            var data = new StringContent(
+                JsonSerializer.Serialize(payload, new JsonSerializerOptions(JsonSerializerDefaults.Web)),
+                System.Text.Encoding.UTF8,
+                "application/json"
+                );
+            var response = await _httpclient.PostAsync(_config["url"], data);
+
+            return response;
+        }
 
     }
 }
